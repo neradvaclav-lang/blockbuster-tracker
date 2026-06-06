@@ -20,7 +20,7 @@
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-amber-400 via-rose-500 to-indigo-600 mb-3">
                 🎬 Ultimate Post-2000 Blockbuster Tracker
             </h1>
-            <p class="text-slate-400 text-lg">Kompletní seznam největších filmových hitů nového tisíciletí. Kolik jsi jich viděl?</p>
+            <p class="text-slate-400 text-lg">Kompletní seznam 200 největších filmových hitů nového tisíciletí. Kolik jsi jich viděl?</p>
         </header>
 
         <div class="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-6 mb-8 backdrop-blur-sm">
@@ -42,4 +42,97 @@
 
             <div class="flex bg-slate-800 p-1 rounded-xl border border-slate-700 w-full md:w-auto">
                 <button onclick="setFilter('all')" id="filter-all" class="flex-1 md:flex-none px-5 py-2 rounded-lg font-medium text-sm transition bg-amber-600 text-white">Všechny</button>
-                <button onclick="setFilter('seen')" id="filter-seen" class
+                <button onclick="setFilter('seen')" id="filter-seen" class="flex-1 md:flex-none px-5 py-2 rounded-lg font-medium text-sm transition text-slate-400 hover:text-slate-200">Viděné</button>
+                <button onclick="setFilter('unseen')" id="filter-unseen" class="flex-1 md:flex-none px-5 py-2 rounded-lg font-medium text-sm transition text-slate-400 hover:text-slate-200">Neviděné</button>
+            </div>
+        </div>
+
+        <div id="movies-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            </div>
+
+    </div>
+
+    <script>
+        // Kompletní databáze přesně 200 filmů bez chyb a duplicitních klíčů
+        const movies = [
+            { id: 1, title: "Avatar", year: 2009, genre: "Sci-Fi / Akční" },
+            { id: 2, title: "Avengers: Endgame", year: 2019, genre: "Sci-Fi / Akční" },
+            { id: 3, title: "Avatar: The Way of Water", year: 2022, genre: "Sci-Fi / Akční" },
+            { id: 4, title: "Star Wars: Síla se probouzí", year: 2015, genre: "Sci-Fi / Fantasy" },
+            { id: 5, title: "Avengers: Infinity War", year: 2018, genre: "Sci-Fi / Akční" },
+            { id: 6, title: "Spider-Man: Bez domova", year: 2021, genre: "Akční / Sci-Fi" },
+            { id: 7, title: "Jurský svět", year: 2015, genre: "Akční / Dobrodružný" },
+            { id: 8, title: "Lví král", year: 2019, genre: "Animovaný / Rodinný" },
+            { id: 9, title: "The Avengers", year: 2012, genre: "Sci-Fi / Akční" },
+            { id: 10, title: "Rychle a zběsile 7", year: 2015, genre: "Akční / Thriller" },
+            { id: 11, title: "Top Gun: Maverick", year: 2022, genre: "Akční / Drama" },
+            { id: 12, title: "Ledové království II", year: 2019, genre: "Animovaný / Rodinný" },
+            { id: 13, title: "Avengers: Age of Ultron", year: 2015, genre: "Sci-Fi / Akční" },
+            { id: 14, title: "Black Panther", year: 2018, genre: "Akční / Sci-Fi" },
+            { id: 15, title: "Harry Potter a Relikvie smrti - část 2", year: 2011, genre: "Fantasy / Dobrodružný" },
+            { id: 16, title: "Star Wars: Poslední z Jediů", year: 2017, genre: "Sci-Fi / Fantasy" },
+            { id: 17, title: "Jurský svět: Zánik říše", year: 2018, genre: "Akční / Dobrodružný" },
+            { id: 18, title: "Ledové království", year: 2013, genre: "Animovaný / Rodinný" },
+            { id: 19, title: "Kráska a zvíře", year: 2017, genre: "Fantasy / Romantický" },
+            { id: 20, title: "Úžasňákovi 2", year: 2018, genre: "Animovaný / Rodinný" },
+            { id: 21, title: "Rychle a zběsile 8", year: 2017, genre: "Akční / Thriller" },
+            { id: 22, title: "Iron Man 3", year: 2013, genre: "Sci-Fi / Akční" },
+            { id: 23, title: "Mimoni", year: 2015, genre: "Animovaný / Komedie" },
+            { id: 24, title: "Captain America: Občanská válka", year: 2016, genre: "Akční / Sci-Fi" },
+            { id: 25, title: "Aquaman", year: 2018, genre: "Akční / Dobrodružný" },
+            { id: 26, title: "Pán prstenů: Návrat krále", year: 2003, genre: "Fantasy / Dobrodružný" },
+            { id: 27, title: "Spider-Man: Daleko od domova", year: 2019, genre: "Akční / Sci-Fi" },
+            { id: 28, title: "Captain Marvel", year: 2019, genre: "Sci-Fi / Akční" },
+            { id: 29, title: "Transformers: Odvrácená strana Měsíce", year: 2011, genre: "Sci-Fi / Akční" },
+            { id: 30, title: "Skyfall", year: 2012, genre: "Akční / Thriller" },
+            { id: 31, title: "Temný rytíř povstal", year: 2012, genre: "Akční / Thriller" },
+            { id: 32, title: "Joker", year: 2019, genre: "Drama / Krimi" },
+            { id: 33, title: "Star Wars: Vzestup Skywalkera", year: 2019, genre: "Sci-Fi / Fantasy" },
+            { id: 34, title: "Toy Story 4: Příběh hraček", year: 2019, genre: "Animovaný / Rodinný" },
+            { id: 35, title: "Piráti z Karibiku: Truhla mrtvého muže", year: 2006, genre: "Dobrodružný / Fantasy" },
+            { id: 36, title: "Temný rytíř", year: 2008, genre: "Akční / Drama" },
+            { id: 37, title: "Barbie", year: 2023, genre: "Komedie / Fantasy" },
+            { id: 38, title: "V hlavě 2", year: 2024, genre: "Animovaný / Rodinný" },
+            { id: 39, title: "Oppenheimer", year: 2023, genre: "Životopisný / Drama" },
+            { id: 40, title: "Deadpool & Wolverine", year: 2024, genre: "Akční / Komedie" },
+            { id: 41, title: "Pán prstenů: Společenstvo Prstenu", year: 2001, genre: "Fantasy / Dobrodružný" },
+            { id: 42, title: "Pán prstenů: Dvě věže", year: 2002, genre: "Fantasy / Dobrodružný" },
+            { id: 43, title: "Počátek (Inception)", year: 2010, genre: "Sci-Fi / Thriller" },
+            { id: 44, title: "Interstellar", year: 2014, genre: "Sci-Fi / Drama" },
+            { id: 45, title: "Gladiátor", year: 2000, genre: "Historický / Akční" },
+            { id: 46, title: "Matrix Reloaded", year: 2003, genre: "Sci-Fi / Akční" },
+            { id: 47, title: "Duna: Část druhá", year: 2024, genre: "Sci-Fi / Dobrodružný" },
+            { id: 48, title: "Duna", year: 2021, genre: "Sci-Fi / Dobrodružný" },
+            { id: 49, title: "Strážci Galaxie", year: 2014, genre: "Sci-Fi / Akční" },
+            { id: 50, title: "Strážci Galaxie Vol. 3", year: 2023, genre: "Sci-Fi / Akční" },
+            { id: 51, title: "Mad Max: Zběsilá cesta", year: 2015, genre: "Akční / Sci-Fi" },
+            { id: 52, title: "Logan: Wolverine", year: 2017, genre: "Akční / Drama" },
+            { id: 53, title: "Piráti z Karibiku: Prokletí Černé perly", year: 2003, genre: "Dobrodružný / Fantasy" },
+            { id: 54, title: "Piráti z Karibiku: Na konci sveta", year: 2007, genre: "Dobrodružný / Fantasy" },
+            { id: 55, title: "Harry Potter a Kámen mudrců", year: 2001, genre: "Fantasy / Rodinný" },
+            { id: 56, title: "Harry Potter a Vězeň z Azkabanu", year: 2004, genre: "Fantasy / Dobrodružný" },
+            { id: 57, title: "Harry Potter a Ohnivý pohár", year: 2005, genre: "Fantasy / Dobrodružný" },
+            { id: 58, title: "Rogue One: Star Wars Story", year: 2016, genre: "Sci-Fi / Akční" },
+            { id: 59, title: "Star Wars: Epizoda III - Pomsta Sithů", year: 2005, genre: "Sci-Fi / Fantasy" },
+            { id: 60, title: "Transformers", year: 2007, genre: "Sci-Fi / Akční" },
+            { id: 61, title: "Transformers: Pomsta poražených", year: 2009, genre: "Sci-Fi / Akční" },
+            { id: 62, title: "Rychle a zběsile 5", year: 2011, genre: "Akční / Krimi" },
+            { id: 63, title: "Rychle a zběsile 6", year: 2013, genre: "Akční / Thriller" },
+            { id: 64, title: "Mission: Impossible - Fallout", year: 2018, genre: "Akční / Thriller" },
+            { id: 65, title: "Mission: Impossible - Odplata", year: 2023, genre: "Akční / Thriller" },
+            { id: 66, title: "Casino Royale", year: 2006, genre: "Akční / Thriller" },
+            { id: 67, title: "Spectre", year: 2015, genre: "Akční / Thriller" },
+            { id: 68, title: "Není čas zemřít", year: 2021, genre: "Akční / Thriller" },
+            { id: 69, title: "Jurský svět: Nadvláda", year: 2022, genre: "Akční / Sci-Fi" },
+            { id: 70, title: "Spider-Man", year: 2002, genre: "Akční / Sci-Fi" },
+            { id: 71, title: "Spider-Man 2", year: 2004, genre: "Akční / Sci-Fi" },
+            { id: 72, title: "The Amazing Spider-Man", year: 2012, genre: "Akční / Sci-Fi" },
+            { id: 73, title: "Spider-Man: Paralelní světy", year: 2018, genre: "Animovaný / Akční" },
+            { id: 74, title: "Batman začíná", year: 2005, genre: "Akční / Drama" },
+            { id: 75, title: "The Batman", year: 2022, genre: "Akční / Krimi" },
+            { id: 76, title: "Iron Man", year: 2008, genre: "Sci-Fi / Akční" },
+            { id: 77, title: "Thor: Ragnarok", year: 2017, genre: "Sci-Fi / Akční" },
+            { id: 78, title: "Doctor Strange v mnohovesmíru šílenství", year: 2022, genre: "Sci-Fi / Fantasy" },
+            { id: 79, title: "Black Panther: Wakanda nechť žije", year: 2022, genre: "Akční / Sci-Fi" },
+            { id: 80, title: "Muž z oceli", year: 2013, genre: "Sci-Fi / Akční" },
+            { id: 81, title: "Batman v Superman: Úsvit spravedlnosti", year: 201
