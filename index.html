@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post-2000 Blockbuster Tracker</title>
-    <!-- Tailwind CSS pro moderní vzhled -->
+    <title>Post-2000 Ultimate Blockbuster Tracker</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -15,211 +14,32 @@
 </head>
 <body class="font-sans antialiased min-h-screen pb-12">
 
-    <!-- Hlavní kontejner -->
-    <div class="max-w-5xl mx-auto px-4 pt-8">
+    <div class="max-w-6xl mx-auto px-4 pt-8">
         
-        <!-- Hlavička -->
         <header class="text-center mb-10">
-            <h1 class="text-4xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-600 mb-2">
-                🍿 Post-2000 Blockbuster Tracker
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-amber-400 via-rose-500 to-indigo-600 mb-3">
+                🎬 Ultimate Post-2000 Blockbuster Tracker
             </h1>
-            <p class="text-slate-400 text-lg">Označ si největší filmové hity nového tisíciletí, které jsi už viděl.</p>
+            <p class="text-slate-400 text-lg">Kompletní seznam největších filmových hitů nového tisíciletí. Kolik jsi jich viděl?</p>
         </header>
 
-        <!-- Statistiky a Pokrok -->
         <div class="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-6 mb-8 backdrop-blur-sm">
             <div class="flex flex-col sm:flex-row justify-between items-center mb-4 gap-2">
                 <span class="text-slate-300 font-medium text-lg">Tvůj celkový pokrok:</span>
-                <span id="progress-text" class="text-cyan-400 font-bold text-xl">0 / 0 (0%)</span>
+                <span id="progress-text" class="text-amber-400 font-bold text-xl">0 / 0 (0%)</span>
             </div>
             <div class="w-full bg-slate-700 rounded-full h-4 overflow-hidden shadow-inner">
-                <div id="progress-bar" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-4 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+                <div id="progress-bar" class="bg-gradient-to-r from-amber-500 via-rose-500 to-indigo-500 h-4 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
             </div>
         </div>
 
-        <!-- Ovládací prvky (Hledání a Filtry) -->
         <div class="flex flex-col md:flex-row gap-4 mb-8 justify-between items-center">
-            <!-- Vyhledávání -->
             <div class="relative w-full md:w-96">
-                <input type="text" id="search-input" placeholder="Hledat film..." 
-                       class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 pl-10 text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition">
+                <input type="text" id="search-input" placeholder="Hledat film podle názvu, roku nebo žánru..." 
+                       class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 pl-10 text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition">
                 <span class="absolute left-3 top-3.5 text-slate-500">🔍</span>
             </div>
 
-            <!-- Filtry -->
             <div class="flex bg-slate-800 p-1 rounded-xl border border-slate-700 w-full md:w-auto">
-                <button onclick="setFilter('all')" id="filter-all" class="flex-1 md:flex-none px-5 py-2 rounded-lg font-medium text-sm transition bg-cyan-600 text-white">Všechny</button>
-                <button onclick="setFilter('seen')" id="filter-seen" class="flex-1 md:flex-none px-5 py-2 rounded-lg font-medium text-sm transition text-slate-400 hover:text-slate-200">Viděné</button>
-                <button onclick="setFilter('unseen')" id="filter-unseen" class="flex-1 md:flex-none px-5 py-2 rounded-lg font-medium text-sm transition text-slate-400 hover:text-slate-200">Neviděné</button>
-            </div>
-        </div>
-
-        <!-- Seznam filmů -->
-        <div id="movies-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <!-- Filmy se vygenerují pomocí JavaScriptu -->
-        </div>
-
-    </div>
-
-    <!-- JavaScript Logika -->
-    <script>
-        // Databáze největších blockbusterů (výběr top hitů po roce 2000)
-        // Můžeš si sem snadno připsat další filmy podle stejného vzoru
-        const movies = [
-            { id: 1, title: "Avatar", year: 2009, genre: "Sci-Fi / Akční" },
-            { id: 2, title: "Avengers: Endgame", year: 2019, genre: "Sci-Fi / Akční" },
-            { id: 3, title: "Avatar: The Way of Water", year: 2022, genre: "Sci-Fi / Akční" },
-            { id: 4, title: "Star Wars: Síla se probouzí", year: 2015, genre: "Sci-Fi / Fantasy" },
-            { id: 5, title: "Avengers: Infinity War", year: 2018, genre: "Sci-Fi / Akční" },
-            { id: 6, title: "Spider-Man: Bez domova", year: 2021, genre: "Akční / Sci-Fi" },
-            { id: 7, title: "Jurský svět", year: 2015, genre: "Akční / Dobrodružný" },
-            { id: 8, title: "Lví král", year: 2019, genre: "Animovaný / Rodinný" },
-            { id: 9, title: "The Avengers", year: 2012, genre: "Sci-Fi / Akční" },
-            { id: 10, title: "Rychle a zběsile 7", year: 2015, genre: "Akční / Thriller" },
-            { id: 11, title: "Top Gun: Maverick", year: 2022, genre: "Akční / Drama" },
-            { id: 12, title: "Ledové království II", year: 2019, genre: "Animovaný / Rodinný" },
-            { id: 13, title: "Avengers: Age of Ultron", year: 2015, genre: "Sci-Fi / Akční" },
-            { id: 14, title: "Black Panther", year: 2018, genre: "Akční / Sci-Fi" },
-            { id: 15, title: "Harry Potter a Relikvie smrti - část 2", year: 2011, genre: "Fantasy / Dobrodružný" },
-            { id: 16, title: "Star Wars: Poslední z Jediů", year: 2017, genre: "Sci-Fi / Fantasy" },
-            { id: 17, title: "Jurský svět: Zánik říše", year: 2018, genre: "Akční / Dobrodružný" },
-            { id: 18, title: "Ledové království", year: 2013, genre: "Animovaný / Rodinný" },
-            { id: 19, title: "Kráska a zvíře", year: 2017, genre: "Fantasy / Romantický" },
-            { id: 20, title: "Incredibles 2 (Úžasňákovi 2)", year: 2018, genre: "Animovaný / Rodinný" },
-            { id: 21, title: "Rychle a zběsile 8", year: 2017, genre: "Akční / Thriller" },
-            { id: 22, title: "Iron Man 3", year: 2013, genre: "Sci-Fi / Akční" },
-            { id: 23, title: "Mimoni", year: 2015, genre: "Animovaný / Komedie" },
-            { id: 24, title: "Captain America: Občanská válka", year: 2016, genre: "Akční / Sci-Fi" },
-            { id: 25, title: "Aquaman", year: 2018, genre: "Akční / Dobrodružný" },
-            { id: 26, title: "Pán prstenů: Návrat krále", year: 2003, genre: "Fantasy / Dobrodružný" },
-            { id: 27, title: "Spider-Man: Daleko od domova", year: 2019, genre: "Akční / Sci-Fi" },
-            { id: 28, title: "Captain Marvel", year: 2019, genre: "Sci-Fi / Akční" },
-            { id: 29, title: "Transformers: Odvrácená strana Měsíce", year: 2011, genre: "Sci-Fi / Akční" },
-            { id: 30, title: "Skyfall (James Bond)", year: 2012, genre: "Akční / Thriller" },
-            { id: 31, title: "Temný rytíř povstal", year: 2012, genre: "Akční / Thriller" },
-            { id: 32, title: "Joker", year: 2019, genre: "Drama / Krimi" },
-            { id: 33, title: "Star Wars: Vzestup Skywalkera", year: 2019, genre: "Sci-Fi / Fantasy" },
-            { id: 34, title: "Toy Story 4: Příběh hraček", year: 2019, genre: "Animovaný / Rodinný" },
-            { id: 35, title: "Piráti z Karibiku: Truhla mrtvého muže", year: 2006, genre: "Dobrodružný / Fantasy" },
-            { id: 36, title: "Temný rytíř", year: 2008, genre: "Akční / Drama" },
-            { id: 37, title: "Barbie", year: 2023, genre: "Komedie / Fantasy" },
-            { id: 38, title: "V hlavě 2", year: 2024, genre: "Animovaný / Rodinný" },
-            { id: 39, title: "Oppenheimer", year: 2023, genre: "Životopisný / Drama" },
-            { id: 40, title: "Deadpool & Wolverine", year: 2024, genre: "Akční / Komedie" }
-        ];
-
-        // Načtení uložených filmů z localStorage nebo vytvoření nového pole
-        let seenMovieIds = JSON.parse(localStorage.getItem('seenMovies')) || [];
-        let currentFilter = 'all';
-        let searchQuery = '';
-
-        // Prvky z HTML
-        const container = document.getElementById('movies-container');
-        const progressText = document.getElementById('progress-text');
-        const progressBar = document.getElementById('progress-bar');
-        const searchInput = document.getElementById('search-input');
-
-        // Funkce pro vykreslení filmů do stránky
-        function renderMovies() {
-            container.innerHTML = '';
-            
-            // Filtrování filmů na základě hledání a zvoleného tabu
-            const filteredMovies = movies.filter(movie => {
-                const matchesSearch = movie.title.toLowerCase().includes(searchQuery.toLowerCase());
-                const isSeen = seenMovieIds.includes(movie.id);
-                
-                if (currentFilter === 'seen') return matchesSearch && isSeen;
-                if (currentFilter === 'unseen') return matchesSearch && !isSeen;
-                return matchesSearch;
-            });
-
-            if (filteredMovies.length === 0) {
-                container.innerHTML = `<div class="col-span-full text-center py-10 text-slate-500">Žádné filmy neodpovídají kritériím.</div>`;
-                return;
-            }
-
-            // Generování HTML karet pro filmy
-            filteredMovies.forEach(movie => {
-                const isSeen = seenMovieIds.includes(movie.id);
-                const card = document.createElement('div');
-                
-                // Dynamické třídy podle toho, jestli je film viděný
-                card.className = `p-4 rounded-xl border transition cursor-pointer select-none flex items-center justify-between ${
-                    isSeen 
-                    ? 'bg-emerald-950/30 border-emerald-500/50 hover:bg-emerald-950/40 text-emerald-100' 
-                    : 'bg-slate-800/80 border-slate-700 hover:border-slate-600 text-slate-200'
-                }`;
-                
-                card.onclick = () => toggleMovie(movie.id);
-
-                card.innerHTML = `
-                    <div class="flex flex-col pr-4">
-                        <span class="font-bold text-base leading-tight">${movie.title}</span>
-                        <span class="text-xs text-slate-400 mt-1">${movie.genre} • ${movie.year}</span>
-                    </div>
-                    <div class="flex-shrink-0">
-                        <div class="w-6 h-6 rounded-md border flex items-center justify-center transition ${
-                            isSeen 
-                            ? 'bg-emerald-500 border-emerald-400 text-white' 
-                            : 'border-slate-500 bg-slate-900'
-                        }">
-                            ${isSeen ? '✓' : ''}
-                        </div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-
-            updateProgress();
-        }
-
-        // Přepnutí stavu filmu (viděno / neviděno)
-        function toggleMovie(id) {
-            if (seenMovieIds.includes(id)) {
-                seenMovieIds = seenMovieIds.filter(movieId => movieId !== id);
-            } else {
-                seenMovieIds.push(id);
-            }
-            // Uložení do paměti prohlížeče
-            localStorage.setItem('seenMovies', JSON.stringify(seenMovieIds));
-            renderMovies();
-        }
-
-        // Aktualizace statistik pokroku
-        function updateProgress() {
-            const total = movies.length;
-            const seenCount = seenMovieIds.filter(id => movies.some(m => m.id === id)).length;
-            const percentage = total > 0 ? Math.round((seenCount / total) * 100) : 0;
-
-            progressText.innerText = `${seenCount} z ${total} (${percentage}%)`;
-            progressBar.style.width = `${percentage}%`;
-        }
-
-        // Přepínání filtrů
-        function setFilter(filterType) {
-            currentFilter = filterType;
-            
-            // Resetování stylů tlačítek
-            ['all', 'seen', 'unseen'].forEach(type => {
-                const btn = document.getElementById(`filter-${type}`);
-                if (type === filterType) {
-                    btn.className = "flex-1 md:flex-none px-5 py-2 rounded-lg font-medium text-sm transition bg-cyan-600 text-white";
-                } else {
-                    btn.className = "flex-1 md:flex-none px-5 py-2 rounded-lg font-medium text-sm transition text-slate-400 hover:text-slate-200";
-                }
-            });
-
-            renderMovies();
-        }
-
-        // Event listener pro vyhledávání
-        searchInput.addEventListener('input', (e) => {
-            searchQuery = e.target.value;
-            renderMovies();
-        });
-
-        // První inicializace při načtení stránky
-        renderMovies();
-    </script>
-</body>
-</html>
+                <button onclick="setFilter('all')" id="filter-all" class="flex-1 md:flex-none px-5 py-2 rounded-lg font-medium text-sm transition bg-amber-600 text-white">Všechny</button>
+                <button onclick="setFilter('seen')" id="filter-seen" class
