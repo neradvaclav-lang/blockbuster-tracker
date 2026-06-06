@@ -6,10 +6,7 @@
     <title>Post-2000 Ultimate Blockbuster Tracker</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            background-color: #0f172a;
-            color: #f8fafc;
-        }
+        body { background-color: #0f172a; color: #f8fafc; }
     </style>
 </head>
 <body class="font-sans antialiased min-h-screen pb-12">
@@ -53,58 +50,323 @@
     </div>
 
     <script>
-        // Kompletní databáze TOP 200 blockbusterů po roce 2000
-        const movies = [
-            { id: 1, title: "Avatar", year: 2009, genre: "Sci-Fi / Akční" },
-            { id: 2, title: "Avengers: Endgame", year: 2019, genre: "Sci-Fi / Akční" },
-            { id: 3, title: "Avatar: The Way of Water", year: 2022, genre: "Sci-Fi / Akční" },
-            { id: 4, title: "Star Wars: Síla se probouzí", year: 2015, genre: "Sci-Fi / Fantasy" },
-            { id: 5, title: "Avengers: Infinity War", year: 2018, genre: "Sci-Fi / Akční" },
-            { id: 6, title: "Spider-Man: Bez domova", year: 2021, genre: "Akční / Sci-Fi" },
-            { id: 7, title: "Jurský svět", year: 2015, genre: "Akční / Dobrodružný" },
-            { id: 8, title: "Lví král", year: 2019, genre: "Animovaný / Rodinný" },
-            { id: 9, title: "The Avengers", year: 2012, genre: "Sci-Fi / Akční" },
-            { id: 10, title: "Rychle a zběsile 7", year: 2015, genre: "Akční / Thriller" },
-            { id: 11, title: "Top Gun: Maverick", year: 2022, genre: "Akční / Drama" },
-            { id: 12, title: "Ledové království II", year: 2019, genre: "Animovaný / Rodinný" },
-            { id: 13, title: "Avengers: Age of Ultron", year: 2015, genre: "Sci-Fi / Akční" },
-            { id: 14, title: "Black Panther", year: 2018, genre: "Akční / Sci-Fi" },
-            { id: 15, title: "Harry Potter a Relikvie smrti - část 2", year: 2011, genre: "Fantasy / Dobrodružný" },
-            { id: 16, title: "Star Wars: Poslední z Jediů", year: 2017, genre: "Sci-Fi / Fantasy" },
-            { id: 17, title: "Jurský svět: Zánik říše", year: 2018, genre: "Akční / Dobrodružný" },
-            { id: 18, title: "Ledové království", year: 2013, genre: "Animovaný / Rodinný" },
-            { id: 19, title: "Kráska a zvíře", year: 2017, genre: "Fantasy / Romantický" },
-            { id: 20, title: "Úžasňákovi 2", year: 2018, genre: "Animovaný / Rodinný" },
-            { id: 21, title: "Rychle a zběsile 8", year: 2017, genre: "Akční / Thriller" },
-            { id: 22, title: "Iron Man 3", year: 2013, genre: "Sci-Fi / Akční" },
-            { id: 23, title: "Mimoni", year: 2015, genre: "Animovaný / Komedie" },
-            { id: 24, title: "Captain America: Občanská válka", year: 2016, genre: "Akční / Sci-Fi" },
-            { id: 25, title: "Aquaman", year: 2018, genre: "Akční / Dobrodružný" },
-            { id: 26, title: "Pán prstenů: Návrat krále", year: 2003, genre: "Fantasy / Dobrodružný" },
-            { id: 27, title: "Spider-Man: Daleko od domova", year: 2019, genre: "Akční / Sci-Fi" },
-            { id: 28, title: "Captain Marvel", year: 2019, genre: "Sci-Fi / Akční" },
-            { id: 29, title: "Transformers: Odvrácená strana Měsíce", year: 2011, genre: "Sci-Fi / Akční" },
-            { id: 30, title: "Skyfall", year: 2012, genre: "Akční / Thriller" },
-            { id: 31, title: "Temný rytíř povstal", year: 2012, genre: "Akční / Thriller" },
-            { id: 32, title: "Joker", year: 2019, genre: "Drama / Krimi" },
-            { id: 33, title: "Star Wars: Vzestup Skywalkera", year: 2019, genre: "Sci-Fi / Fantasy" },
-            { id: 34, title: "Toy Story 4: Příběh hraček", year: 2019, genre: "Animovaný / Rodinný" },
-            { id: 35, title: "Piráti z Karibiku: Truhla mrtvého muže", year: 2006, genre: "Dobrodružný / Fantasy" },
-            { id: 36, title: "Temný rytíř", year: 2008, genre: "Akční / Drama" },
-            { id: 37, title: "Barbie", year: 2023, genre: "Komedie / Fantasy" },
-            { id: 38, title: "V hlavě 2", year: 2024, genre: "Animovaný / Rodinný" },
-            { id: 39, title: "Oppenheimer", year: 2023, genre: "Životopisný / Drama" },
-            { id: 40, title: "Deadpool & Wolverine", year: 2024, genre: "Akční / Komedie" },
-            { id: 41, title: "Pán prstenů: Společenstvo Prstenu", year: 2001, genre: "Fantasy / Dobrodružný" },
-            { id: 42, title: "Pán prstenů: Dvě věže", year: 2002, genre: "Fantasy / Dobrodružný" },
-            { id: 43, title: "Počátek (Inception)", year: 2010, genre: "Sci-Fi / Thriller" },
-            { id: 44, title: "Interstellar", year: 2014, genre: "Sci-Fi / Drama" },
-            { id: 45, title: "Gladiátor", year: 2000, genre: "Historický / Akční" },
-            { id: 46, title: "Matrix Reloaded", year: 2003, genre: "Sci-Fi / Akční" },
-            { id: 47, title: "Duna: Část druhá", year: 2024, genre: "Sci-Fi / Dobrodružný" },
-            { id: 48, title: "Duna", year: 2021, genre: "Sci-Fi / Dobrodružný" },
-            { id: 49, title: "Strážci Galaxie", year: 2014, genre: "Sci-Fi / Akční" },
-            { id: 50, title: "Strážci Galaxie Vol. 3", year: 2023, genre: "Sci-Fi / Akční" },
-            { id: 51, title: "Mad Max: Zběsilá cesta", year: 2015, genre: "Akční / Sci-Fi" },
-            { id: 52, title: "Logan: Wolverine", year: 2017, genre: "Akční / Drama" },
-            { id: 53, title: "Piráti z Karibiku: Prokletí Černé perly", year: 2
+        // Optimalizovaná, komprimovaná data všech 200 blockbusterů pro bezpečný přenos
+        const rawMovies = [
+            "Avatar|2009|Sci-Fi / Akční",
+            "Avengers: Endgame|2019|Sci-Fi / Akční",
+            "Avatar: The Way of Water|2022|Sci-Fi / Akční",
+            "Star Wars: Síla se probouzí|2015|Sci-Fi / Fantasy",
+            "Avengers: Infinity War|2018|Sci-Fi / Akční",
+            "Spider-Man: Bez domova|2021|Akční / Sci-Fi",
+            "Jurský svět|2015|Akční / Dobrodružný",
+            "Lví král|2019|Animovaný / Rodinný",
+            "The Avengers|2012|Sci-Fi / Akční",
+            "Rychle a zběsile 7|2015|Akční / Thriller",
+            "Top Gun: Maverick|2022|Akční / Drama",
+            "Ledové království II|2019|Animovaný / Rodinný",
+            "Avengers: Age of Ultron|2015|Sci-Fi / Akční",
+            "Black Panther|2018|Akční / Sci-Fi",
+            "Harry Potter a Relikvie smrti - část 2|2011|Fantasy / Dobrodružný",
+            "Star Wars: Poslední z Jediů|2017|Sci-Fi / Fantasy",
+            "Jurský svět: Zánik říše|2018|Akční / Dobrodružný",
+            "Ledové království|2013|Animovaný / Rodinný",
+            "Kráska a zvíře|2017|Fantasy / Romantický",
+            "Úžasňákovi 2|2018|Animovaný / Rodinný",
+            "Rychle a zběsile 8|2017|Akční / Thriller",
+            "Iron Man 3|2013|Sci-Fi / Akční",
+            "Mimoni|2015|Animovaný / Komedie",
+            "Captain America: Občanská válka|2016|Akční / Sci-Fi",
+            "Aquaman|2018|Akční / Dobrodružný",
+            "Pán prstenů: Návrat krále|2003|Fantasy / Dobrodružný",
+            "Spider-Man: Daleko od domova|2019|Akční / Sci-Fi",
+            "Captain Marvel|2019|Sci-Fi / Akční",
+            "Transformers: Odvrácená strana Měsíce|2011|Sci-Fi / Akční",
+            "Skyfall|2012|Akční / Thriller",
+            "Temný rytíř povstal|2012|Akční / Thriller",
+            "Joker|2019|Drama / Krimi",
+            "Star Wars: Vzestup Skywalkera|2019|Sci-Fi / Fantasy",
+            "Toy Story 4: Příběh hraček|2019|Animovaný / Rodinný",
+            "Piráti z Karibiku: Truhla mrtvého muže|2006|Dobrodružný / Fantasy",
+            "Temný rytíř|2008|Akční / Drama",
+            "Barbie|2023|Komedie / Fantasy",
+            "V hlavě 2|2024|Animovaný / Rodinný",
+            "Oppenheimer|2023|Životopisný / Drama",
+            "Deadpool & Wolverine|2024|Akční / Komedie",
+            "Pán prstenů: Společenstvo Prstenu|2001|Fantasy / Dobrodružný",
+            "Pán prstenů: Dvě věže|2002|Fantasy / Dobrodružný",
+            "Počátek (Inception)|2010|Sci-Fi / Thriller",
+            "Interstellar|2014|Sci-Fi / Drama",
+            "Gladiátor|2000|Historický / Akční",
+            "Matrix Reloaded|2003|Sci-Fi / Akční",
+            "Duna: Část druhá|2024|Sci-Fi / Dobrodružný",
+            "Duna|2021|Sci-Fi / Dobrodružný",
+            "Strážci Galaxie|2014|Sci-Fi / Akční",
+            "Strážci Galaxie Vol. 3|2023|Sci-Fi / Akční",
+            "Mad Max: Zběsilá cesta|2015|Akční / Sci-Fi",
+            "Logan: Wolverine|2017|Akční / Drama",
+            "Piráti z Karibiku: Prokletí Černé perly|2003|Dobrodružný / Fantasy",
+            "Piráti z Karibiku: Na konci světa|2007|Dobrodružný / Fantasy",
+            "Harry Potter a Kámen mudrců|2001|Fantasy / Rodinný",
+            "Harry Potter a Vězeň z Azkabanu|2004|Fantasy / Dobrodružný",
+            "Harry Potter a Ohnivý pohár|2005|Fantasy / Dobrodružný",
+            "Rogue One: Star Wars Story|2016|Sci-Fi / Akční",
+            "Star Wars: Epizoda III - Pomsta Sithů|2005|Sci-Fi / Fantasy",
+            "Transformers|2007|Sci-Fi / Akční",
+            "Transformers: Pomsta poražených|2009|Sci-Fi / Akční",
+            "Rychle a zběsile 5|2011|Akční / Krimi",
+            "Rychle a zběsile 6|2013|Akční / Thriller",
+            "Mission: Impossible - Fallout|2018|Akční / Thriller",
+            "Mission: Impossible - Odplata|2023|Akční / Thriller",
+            "Casino Royale|2006|Akční / Thriller",
+            "Spectre|2015|Akční / Thriller",
+            "Není čas zemřít|2021|Akční / Thriller",
+            "Jurský svět: Nadvláda|2022|Akční / Sci-Fi",
+            "Spider-Man|2002|Akční / Sci-Fi",
+            "Spider-Man 2|2004|Akční / Sci-Fi",
+            "The Amazing Spider-Man|2012|Akční / Sci-Fi",
+            "Spider-Man: Paralelní světy|2018|Animovaný / Akční",
+            "Batman začíná|2005|Akční / Drama",
+            "The Batman|2022|Akční / Krimi",
+            "Iron Man|2008|Sci-Fi / Akční",
+            "Thor: Ragnarok|2017|Sci-Fi / Akční",
+            "Doctor Strange v mnohovesmíru šílenství|2022|Sci-Fi / Fantasy",
+            "Black Panther: Wakanda nechť žije|2022|Akční / Sci-Fi",
+            "Muž z oceli|2013|Sci-Fi / Akční",
+            "Batman v Superman: Úsvit spravedlnosti|2016|Akční / Sci-Fi",
+            "Wonder Woman|2017|Akční / Fantasy",
+            "Sebevražedný oddíl|2016|Akční / Sci-Fi",
+            "Shrek|2001|Animovaný / Komedie",
+            "Shrek 2|2004|Animovaný / Komedie",
+            "Hledá se Nemo|2003|Animovaný / Rodinný",
+            "Hledá se Dory|2016|Animovaný / Rodinný",
+            "Úžasňákovi|2004|Animovaný / Rodinný",
+            "Toy Story 3: Příběh hraček|2010|Animovaný / Rodinný",
+            "Já, padouch|2010|Animovaný / Komedie",
+            "Já, padouch 2|2013|Animovaný / Komedie",
+            "Zootropolis: Město zvířat|2016|Animovaný / Rodinný",
+            "Coco|2017|Animovaný / Rodinný",
+            "Madagaskar|2005|Animovaný / Komedie",
+            "Doba ledová 2 - Oteplení|2006|Animovaný / Komedie",
+            "Kniha džunglí|2016|Dobrodružný / Drama",
+            "Aladin|2019|Dobrodružný / Fantasy",
+            "Malá mořská víla|2023|Fantasy / Rodinný",
+            "Hobit: Neočekávaná cesta|2012|Fantasy / Dobrodružný",
+            "Hobit: Šmakova dračí poušť|2013|Fantasy / Dobrodružný",
+            "Hobit: Bitva pěti armád|2014|Fantasy / Dobrodružný",
+            "The Hunger Games|2012|Sci-Fi / Akční",
+            "The Hunger Games: Vražedná pomsta|2013|Sci-Fi / Akční",
+            "Twilight sága: Rozbřesk – 2. část|2012|Fantasy / Romantický",
+            "Da Vinciho kód (Šifra mistra Leonarda)|2006|Mysteriózní / Thriller",
+            "Chronicles of Narnia: Lev, čarodějnice a skříň|2005|Fantasy / Rodinný",
+            "King Kong|2005|Dobrodružný / Akční",
+            "Světová válka Z|2013|Akční / Horor",
+            "Já, legenda|2007|Sci-Fi / Thriller",
+            "Hancock|2008|Akční / Komedie",
+            "Muži v černém 3|2012|Sci-Fi / Komedie",
+            "Sherlock Holmes|2009|Akční / Krimi",
+            "Sherlock Holmes: Hra stínů|2011|Akční / Krimi",
+            "Po dnu poté|2004|Sci-Fi / Katastrofický",
+            "2012|2009|Katastrofický / Akční",
+            "Marťan|2015|Sci-Fi / Drama",
+            "Gravitace|2013|Sci-Fi / Drama",
+            "Počátek planety opic|2011|Sci-Fi / Akční",
+            "Úsvit planety opic|2014|Sci-Fi / Akční",
+            "Pacific Rim - Útok na Zemi|2013|Sci-Fi / Akční",
+            "Godzilla|2014|Sci-Fi / Akční",
+            "Kong: Ostrov lebek|2017|Dobrodružný / Sci-Fi",
+            "Ready Player One: Hra začíná|2018|Sci-Fi / Akční",
+            "Free Guy|2021|Akční / Komedie",
+            "Kingsman: Tajná služba|2014|Akční / Komedie",
+            "Strážci - Watchmen|2009|Sci-Fi / Akční",
+            "300: Bitva u Thermopyl|2006|Akční / Historický",
+            "Trója|2004|Historický / Akční",
+            "Van Helsing|2004|Fantasy / Dobrodružný",
+            "Mumie se vrací|2001|Dobrodružný / Fantasy",
+            "Klub rváčů|2000|Drama / Thriller",
+            "Smrtonosná past 4.0|2007|Akční / Thriller",
+            "Taken (96 hodin)|2008|Akční / Thriller",
+            "John Wick: Kapitola 4|2023|Akční / Thriller",
+            "Equalizer 3: Poslední kapitola|2023|Akční / Thriller",
+            "Super Mario Bros. ve filmu|2023|Animovaný / Komedie",
+            "Puss in Boots: Poslední přání|2022|Animovaný / Dobrodružný",
+            "Spider-Man: Napříč paralelními světy|2023|Animovaný / Akční",
+            "Wonka|2023|Fantasy / Komedie",
+            "Tenet|2020|Sci-Fi / Akční",
+            "Dunkerk|2017|Válečný / Drama",
+            "Na hraně zítřka|2014|Sci-Fi / Akční",
+            "Nevědomí (Oblivion)|2013|Sci-Fi / Dobrodružný",
+            "Prometheus|2012|Sci-Fi / Horor",
+            "Vetřelec: Romulus|2024|Sci-Fi / Horor",
+            "Jurský park 3|2001|Sci-Fi / Dobrodružný",
+            "Suicide Squad: Nejobávanější tým|2021|Akční / Sci-Fi",
+            "Aquaman a ztracené království|2023|Akční / Dobrodružný",
+            "X-Men 2|2003|Sci-Fi / Akční",
+            "X-Men: Budoucí minulost|2014|Sci-Fi / Akční",
+            "X-Men: První třída|2011|Sci-Fi / Akční",
+            "Deadpool|2016|Akční / Komedie",
+            "Deadpool 2|2018|Akční / Komedie",
+            "Strážci Galaxie Vol. 2|2017|Sci-Fi / Akční",
+            "Thor: Láska jako hrom|2022|Sci-Fi / Akční",
+            "Doctor Strange|2016|Sci-Fi / Akční",
+            "Ant-Man|2015|Sci-Fi / Akční",
+            "Captain America: Návrat prvního Avengera|2014|Sci-Fi / Akční",
+            "Shang-Chi a legenda o deseti prstenech|2021|Akční / Fantasy",
+            "Eternals|2021|Sci-Fi / Akční",
+            "Spider-Man: Homecoming|2017|Akční / Sci-Fi",
+            "Piráti z Karibiku: Na vlnách podivna|2011|Dobrodružný / Fantasy",
+            "Piráti z Karibiku: Salazarova pomsta|2017|Dobrodružný / Fantasy",
+            "Harry Potter a Tajemná komnata|2002|Fantasy / Rodinný",
+            "Harry Potter a Fénixův řád|2007|Fantasy / Dobrodružný",
+            "Harry Potter a Princ dvojí krve|2009|Fantasy / Dobrodružný",
+            "Harry Potter a Relikvie smrti - část 1|2010|Fantasy / Dobrodružný",
+            "Fantastická zvířata a kde je najít|2016|Fantasy / Dobrodružný",
+            "Rychle a zběsile 9|2021|Akční / Thriller",
+            "Fast X|2023|Akční / Thriller",
+            "Zrození Planety opic|2011|Sci-Fi / Akční",
+            "Válka o planetu opic|2017|Sci-Fi / Akční",
+            "Království Planety opic|2024|Sci-Fi / Akční",
+            "Godzilla x Kong: Nové impérium|2024|Sci-Fi / Akční",
+            "Godzilla II Král monster|2019|Sci-Fi / Akční",
+            "Transformers: Zánik|2014|Sci-Fi / Akční",
+            "Transformers: Poslední rytíř|2017|Sci-Fi / Akční",
+            "Bumblebee|2018|Sci-Fi / Akční",
+            "Meg: Monstrum z hlubin|2018|Akční / Sci-Fi",
+            "Meg 2: Příkop|2023|Akční / Sci-Fi",
+            "Uncharted|2022|Akční / Dobrodružný",
+            "Rampage Ničitelé|2018|Akční / Sci-Fi",
+            "San Andreas|2015|Katastrofický / Akční",
+            "Jumanji: Vítejte v džungli!|2017|Dobrodružný / Komedie",
+            "Jumanji: Další level|2019|Dobrodružný / Komedie",
+            "Black Widow|2021|Akční / Sci-Fi",
+            "Cruella|2021|Komedie / Drama",
+            "Mulan|2020|Akční / Dobrodružný",
+            "Zloba - Královna černé magie|2014|Fantasy / Dobrodružný",
+            "Popelka|2015|Fantasy / Rodinný",
+            "Dumbo|2019|Rodinný / Fantasy",
+            "Enchanter (Kouzelná romance)|2007|Fantasy / Komedie",
+            "Hvězdy nám nepřály|2014|Drama / Romantický",
+            "Padesát odstínů šedi|2015|Drama / Romantický",
+            "Mamma Mia!|2008|Muzikál / Komedie",
+            "Mamma Mia! Here We Go Again|2018|Muzikál / Komedie",
+            "La La Land|2016|Muzikál / Drama",
+            "Největší showman|2017|Muzikál / Drama",
+            "Bohemian Rhapsody|2018|Životopisný / Drama",
+            "Elvis|2022|Životopisný / Drama"
+        ];
+
+        // Automatické zpracování textových dat na objekty
+        const movies = rawMovies.map((item, idx) => {
+            const parts = item.split('|');
+            return { id: idx + 1, title: parts[0], year: parseInt(parts[1]), genre: parts[2] };
+        });
+
+        let seenMovieIds = JSON.parse(localStorage.getItem('seenMovies')) || [];
+        let currentFilter = 'all';
+        let searchQuery = '';
+
+        const container = document.getElementById('movies-container');
+        const progressText = document.getElementById('progress-text');
+        const progressBar = document.getElementById('progress-bar');
+        const searchInput = document.getElementById('search-input');
+
+        function renderMovies() {
+            container.innerHTML = '';
+            
+            const filteredMovies = movies.filter(movie => {
+                const matchesSearch = movie.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      movie.genre.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                      movie.year.toString().includes(searchQuery);
+                const isSeen = seenMovieIds.includes(movie.id);
+                
+                if (currentFilter === 'seen') return matchesSearch && isSeen;
+                if (currentFilter === 'unseen') return matchesSearch && !isSeen;
+                return matchesSearch;
+            });
+
+            if (filteredMovies.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-10 text-slate-500">Žádné filmy neodpovídají kritériím.</div>`;
+                updateProgress();
+                return;
+            }
+
+            filteredMovies.forEach(movie => {
+                const isSeen = seenMovieIds.includes(movie.id);
+                const card = document.createElement('div');
+                
+                card.className = `p-4 rounded-xl border transition cursor-pointer select-none flex items-center justify-between gap-4 group ${
+                    isSeen 
+                    ? 'bg-emerald-950/30 border-emerald-500/40 hover:bg-emerald-950/50 text-emerald-100' 
+                    : 'bg-slate-800/70 border-slate-700/80 hover:border-slate-600 hover:bg-slate-800 text-slate-200'
+                }`;
+                
+                card.onclick = () => toggleMovie(movie.id);
+                const csfdSearchUrl = `https://www.csfd.cz/vyhledavani/?q=${encodeURIComponent(movie.title + ' ' + movie.year)}`;
+
+                card.innerHTML = `
+                    <div class="flex flex-col min-w-0 flex-1">
+                        <span class="font-bold text-base leading-tight truncate group-hover:text-amber-400 transition">${movie.title}</span>
+                        <span class="text-xs text-slate-400 mt-1 truncate">${movie.genre} • ${movie.year}</span>
+                        <div class="mt-2">
+                            <a href="${csfdSearchUrl}" target="_blank" onclick="event.stopPropagation();" 
+                               class="inline-flex items-center text-[11px] font-semibold bg-slate-900/80 hover:bg-red-700 text-slate-300 hover:text-white px-2 py-1 rounded border border-slate-700 hover:border-red-600 transition duration-150">
+                               ČSFD ↗
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <div class="w-6 h-6 rounded-md border flex items-center justify-center transition duration-200 ${
+                            isSeen 
+                            ? 'bg-emerald-500 border-emerald-400 text-white shadow-lg shadow-emerald-900/50' 
+                            : 'border-slate-500 bg-slate-900'
+                        }">
+                            ${isSeen ? '✓' : ''}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            updateProgress();
+        }
+
+        function toggleMovie(id) {
+            if (seenMovieIds.includes(id)) {
+                seenMovieIds = seenMovieIds.filter(movieId => movieId !== id);
+            } else {
+                seenMovieIds.push(id);
+            }
+            localStorage.setItem('seenMovies', JSON.stringify(seenMovieIds));
+            renderMovies();
+        }
+
+        function updateProgress() {
+            const total = movies.length;
+            const seenCount = seenMovieIds.filter(id => movies.some(m => m.id === id)).length;
+            const percentage = total > 0 ? Math.round((seenCount / total) * 100) : 0;
+
+            progressText.innerText = `${seenCount} z ${total} filmů (${percentage}%)`;
+            progressBar.style.width = `${percentage}%`;
+        }
+
+        function setFilter(filterType) {
+            currentFilter = filterType;
+            ['all', 'seen', 'unseen'].forEach(type => {
+                const btn = document.getElementById(`filter-${type}`);
+                if (type === filterType) {
+                    btn.className = "flex-1 md:flex-none px-5 py-2 rounded-lg font-medium text-sm transition bg-amber-600 text-white shadow-md";
+                } else {
+                    btn.className = "flex-1 md:flex-none px-5 py-2 rounded-lg font-medium text-sm transition text-slate-400 hover:text-slate-200";
+                }
+            });
+            renderMovies();
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderMovies();
+        });
+
+        renderMovies();
+    </script>
+</body>
+</html>
